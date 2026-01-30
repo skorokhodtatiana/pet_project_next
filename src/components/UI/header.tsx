@@ -43,9 +43,8 @@ export default function Header() {
 		)
 	}
 
-
 	return (
-		<Navbar>
+		<Navbar className="h-[60px]">
 			<NavbarBrand>
 				<Link href="/" className="flex gap-1">
 					<Logo />
