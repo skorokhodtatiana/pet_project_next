@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "../components/UI/header";
 import { Providers } from "../providers/provider";
 import { siteConfig } from "../config/site.config";
+import { layoutConfig } from "../config/layout.config";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -30,10 +31,10 @@ export default function RootLayout({
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
 				<Providers>
 					<Header/>
-					<main className="flex flex-col h-[calc(100vh_-_80px_-_60px)] w-full justify-start items-center">
+					<main className={`flex flex-col h-[calc(100vh_-_${layoutConfig.footerHight}_-_${layoutConfig.headerHight})] w-full justify-start items-center`}>
 						{children}
 					</main>
-					<footer className="flex h-[80px] justify-center items-center">
+					<footer className={`h-[${layoutConfig.footerHight}] flex  justify-center items-center`}>
 						<p>{siteConfig.description}</p>
 					</footer>
 				</Providers>
