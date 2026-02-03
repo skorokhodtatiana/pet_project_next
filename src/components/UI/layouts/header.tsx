@@ -6,6 +6,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { siteConfig } from "@/src/config/site.config";
 import { layoutConfig } from "@/src/config/layout.config";
+import RegistrationModal from "../modals/registration.modal";
+import LoginModal from "../modals/login.modal";
+import { useState } from "react";
 
 export const Logo = () => {
 	return (
@@ -20,6 +23,9 @@ export const Logo = () => {
 
 export default function Header() {
 	const pathname = usePathname();
+
+	const [isRegistrationModalOpen, setIsRegistrationModalOpen] = useState(false);
+	const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
 	const getNavItems = () => {
 		return (
@@ -62,14 +68,19 @@ export default function Header() {
 
 			<NavbarContent justify="end">
 				<NavbarItem className="hidden lg:flex">
-					<Link href="#">Логин</Link>
 				</NavbarItem>
 				<NavbarItem>
-					<Button as={Link} color="primary" href="#" variant="flat">
+					<Button onPress={() => setIsRegistrationModalOpen(true)} as={Link} color="primary" href="#" variant="flat">
 						Регистрация
+					</Button>
+					<Button onPress={() => setIsLoginModalOpen(true)} as={Link} color="primary" href="#" variant="flat">
+						Войти
 					</Button>
 				</NavbarItem>
 			</NavbarContent>
+
+			<RegistrationModal onClose={() => setIsLoginModalOpen(false)} isOpen={isRegistrationModalOpen}></RegistrationModal>
+			<LoginModal onClose={() => setIsLoginModalOpen(false)} isOpen={isLoginModalOpen}></LoginModal>
 		</Navbar>
 	);
 }
