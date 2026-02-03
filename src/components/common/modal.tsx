@@ -23,7 +23,7 @@ const CustomModal = ({
 			<Modal isOpen={isOpen} onClose={onClose} size={size}>
 				<ModalContent>
 					<ModalHeader className="border-b">
-						<h1 className="text-xl text-background font-semibold">{title}</h1>
+						<h1 className="text-xl font-semibold">{title}</h1>
 					</ModalHeader>
 					<ModalBody className="space-y-4 py-6">
 						{children}

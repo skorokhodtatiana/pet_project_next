@@ -79,7 +79,7 @@ export default function Header() {
 				</NavbarItem>
 			</NavbarContent>
 
-			<RegistrationModal onClose={() => setIsLoginModalOpen(false)} isOpen={isRegistrationModalOpen}></RegistrationModal>
+			<RegistrationModal onClose={() => setIsRegistrationModalOpen(false)} isOpen={isRegistrationModalOpen}></RegistrationModal>
 			<LoginModal onClose={() => setIsLoginModalOpen(false)} isOpen={isLoginModalOpen}></LoginModal>
 		</Navbar>
 	);
