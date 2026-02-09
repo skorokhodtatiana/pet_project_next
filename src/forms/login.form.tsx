@@ -2,6 +2,7 @@
 
 import { Form, Input, Button } from "@heroui/react";
 import { useState } from "react";
+import { signInWithCredentionals } from "../actions/sign-in";
 
 interface IProps {
 	onClose: () => void
@@ -14,14 +15,16 @@ const LoginForm = ({onClose}: IProps) => {
 		confirmPassword: ""
 	})
 
-	const onSubmit = async(e: React.FormEvent) => {
+	const handleSubmit = async(e: React.FormEvent) => {
 		e.preventDefault();
 		console.log("Form submitted", formData)
+		const result = await signInWithCredentionals(formData.email, formData.password);
+		console.log("result", result)
 		onClose();
 	}
 
 	return (
-		<Form className="w-full max-w-xs" onSubmit={onSubmit}>
+		<Form className="w-full max-w-xs" onSubmit={handleSubmit}>
 			<Input
 				isRequired
 				aria-label="Email"
