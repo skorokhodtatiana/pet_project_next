@@ -9,6 +9,7 @@ import { layoutConfig } from "@/src/config/layout.config";
 import RegistrationModal from "../modals/registration.modal";
 import LoginModal from "../modals/login.modal";
 import { useState } from "react";
+import { signOutfunc } from "@/src/actions/sign-out";
 
 export const Logo = () => {
 	return (
@@ -50,6 +51,10 @@ export default function Header() {
 		)
 	}
 
+	const handleSignOut = async () => {
+		await signOutfunc();
+	}
+
 	return (
 		<Navbar
 			style={{
@@ -73,8 +78,11 @@ export default function Header() {
 					<Button onPress={() => setIsRegistrationModalOpen(true)} as={Link} color="primary" href="#" variant="flat">
 						Регистрация
 					</Button>
+					<Button onPress={handleSignOut} as={Link} color="primary" href="#" variant="flat">
+						Выйти
+					</Button>
 					<Button onPress={() => setIsLoginModalOpen(true)} as={Link} color="primary" href="#" variant="flat">
-						Войти
+						Логин
 					</Button>
 				</NavbarItem>
 			</NavbarContent>
