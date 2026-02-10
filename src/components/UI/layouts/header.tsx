@@ -10,6 +10,7 @@ import RegistrationModal from "../modals/registration.modal";
 import LoginModal from "../modals/login.modal";
 import { useState } from "react";
 import { signOutfunc } from "@/src/actions/sign-out";
+import { useSession } from "next-auth/react";
 
 export const Logo = () => {
 	return (
@@ -24,6 +25,12 @@ export const Logo = () => {
 
 export default function Header() {
 	const pathname = usePathname();
+	const {data: session, status} = useSession();
+
+	console.log('session', session);
+	console.log('status', status);
+
+	const isAuth = status === 'authenticated';
 
 	const [isRegistrationModalOpen, setIsRegistrationModalOpen] = useState(false);
 	const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
@@ -72,19 +79,23 @@ export default function Header() {
 			</NavbarContent>
 
 			<NavbarContent justify="end">
-				<NavbarItem className="hidden lg:flex">
-				</NavbarItem>
-				<NavbarItem>
-					<Button onPress={() => setIsRegistrationModalOpen(true)} as={Link} color="primary" href="#" variant="flat">
-						Регистрация
-					</Button>
-					<Button onPress={handleSignOut} as={Link} color="primary" href="#" variant="flat">
-						Выйти
-					</Button>
-					<Button onPress={() => setIsLoginModalOpen(true)} as={Link} color="primary" href="#" variant="flat">
-						Логин
-					</Button>
-				</NavbarItem>
+				{isAuth && <p>Привет, {session?.user?.email}!</p>}
+				{!isAuth ?
+					<NavbarItem className="hidden lg:flex">
+						<Button onPress={() => setIsRegistrationModalOpen(true)} as={Link} color="primary" href="#" variant="flat">
+							Регистрация
+						</Button>
+						<Button onPress={() => setIsLoginModalOpen(true)} as={Link} color="primary" href="#" variant="flat">
+							Логин
+						</Button>
+					</NavbarItem>
+					:
+					<NavbarItem className="hidden lg:flex">
+						<Button onPress={handleSignOut} as={Link} color="primary" href="#" variant="flat">
+							Выйти
+						</Button>
+					</NavbarItem>
+				}
 			</NavbarContent>
 
 			<RegistrationModal onClose={() => setIsRegistrationModalOpen(false)} isOpen={isRegistrationModalOpen}></RegistrationModal>
