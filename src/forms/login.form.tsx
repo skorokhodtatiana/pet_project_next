@@ -9,7 +9,7 @@ interface IProps {
 }
 
 const LoginForm = ({onClose}: IProps) => {
-	const [formData, setFormData] =useState({
+	const [formData, setFormData] = useState({
 		email: "",
 		password: "",
 		confirmPassword: ""
@@ -18,8 +18,9 @@ const LoginForm = ({onClose}: IProps) => {
 	const handleSubmit = async(e: React.FormEvent) => {
 		e.preventDefault();
 		console.log("Form submitted", formData)
-		const result = await signInWithCredentionals(formData.email, formData.password);
-		console.log("result", result)
+		await signInWithCredentionals(formData.email, formData.password);
+
+		window.location.reload()
 		onClose();
 	}
 

@@ -80,10 +80,9 @@ export default function Header() {
 				{getNavItems()}
 			</NavbarContent>
 
-			{status === 'loading' ? <p>Загрузка...</p> :
 				<NavbarContent justify="end">
 					{isAuth && <p>Привет, {session?.user?.email}!</p>}
-					{!isAuth ?
+					{status === 'loading' ? <p>Загрузка...</p> : !isAuth ?
 						<NavbarItem className="hidden lg:flex">
 							<Button onPress={() => setIsRegistrationModalOpen(true)} as={Link} color="primary" href="#" variant="flat">
 								Регистрация
@@ -100,7 +99,6 @@ export default function Header() {
 						</NavbarItem>
 					}
 				</NavbarContent>
-			}
 
 			<RegistrationModal onClose={() => setIsRegistrationModalOpen(false)} isOpen={isRegistrationModalOpen}></RegistrationModal>
 			<LoginModal onClose={() => setIsLoginModalOpen(false)} isOpen={isLoginModalOpen}></LoginModal>

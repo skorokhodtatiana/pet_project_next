@@ -2,7 +2,7 @@
 
 import { useSession } from "next-auth/react";
 import { useAuthStore } from "../store/auth.store";
-import { Children, useEffect } from "react";
+import { useEffect } from "react";
 
 interface IProps {
 	children: React.ReactNode;
@@ -11,9 +11,11 @@ interface IProps {
 const AppLoader = ({children}: IProps) => {
 	const {data: session, status} = useSession();
 	const {setAuthState} = useAuthStore();
+
 	useEffect(() => {
 		setAuthState(status, session);
 	},[status, session, setAuthState])
+
 	return(
 		<>{children}</>
 	)
