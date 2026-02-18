@@ -8,6 +8,7 @@ import { layoutConfig } from "../config/layout.config";
 import { SessionProvider } from "next-auth/react";
 import { auth } from "../auth/auth";
 import AppLoader from "../hoc/app-loader";
+import TitlePage from "../components/UI/layouts/title";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -37,6 +38,7 @@ export default async function RootLayout({
 					<SessionProvider session={session}>
 						<AppLoader>
 							<Header/>
+							<TitlePage/>
 							<main className={`flex flex-col h-[calc(100vh_-_${layoutConfig.footerHight}_-_${layoutConfig.headerHight})] w-full justify-start items-center`}>
 								{children}
 							</main>
