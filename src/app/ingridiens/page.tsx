@@ -1,7 +1,11 @@
+'use client'
+
+import PageContent from "@/src/components/common/page-content";
+
 const Ingridiens = () => {
 	return (
 		<div>
-			<h1>Ингридиенты</h1>
+			<PageContent></PageContent>
 		</div>
 	)
 }
