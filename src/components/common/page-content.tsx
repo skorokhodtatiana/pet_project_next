@@ -9,12 +9,12 @@ const PageContent = () => {
 	console.log('pageContent', pageContent)
 
 	if (!pageContent) {
-		return <NotFound></NotFound>
+		return <NotFound />
 	}
 
 	return (
 		<>
-			{pageContent.content}
+		<div dangerouslySetInnerHTML={{ __html: pageContent.content }}/>
 		</>
 	)
 }
