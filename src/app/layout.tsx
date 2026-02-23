@@ -38,11 +38,19 @@ export default async function RootLayout({
 					<SessionProvider session={session}>
 						<AppLoader>
 							<Header/>
-							<TitlePage/>
-							<main className={`flex flex-col h-[calc(100vh_-_${layoutConfig.footerHight}_-_${layoutConfig.headerHight})] w-full justify-start items-center`}>
+							<main
+								className={`flex flex-col w-full justify-start items-center`}
+								style={{height: `calc(100vh - ${layoutConfig.footerHight} - ${layoutConfig.headerHight})`}}
+							>
+								<TitlePage />
 								{children}
 							</main>
-							<footer className={`h-[${layoutConfig.footerHight}] flex  justify-center items-center`}>
+							<footer
+								className={`flex  justify-center items-center`}
+								style={{
+									height: `${layoutConfig.footerHight}`
+								}}
+							>
 								<p>{siteConfig.description}</p>
 							</footer>
 						</AppLoader>

@@ -5,7 +5,7 @@ import PageContent from "@/src/components/common/page-content";
 const About = () => {
 
 	return (
-		<div>
+		<div className="max-w-[1024]">
 			<PageContent></PageContent>
 		</div>
 	)
