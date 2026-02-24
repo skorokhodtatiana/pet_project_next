@@ -1,6 +1,8 @@
 import NotFound from "@/src/app/not-found";
 import { siteConfig } from "@/src/config/site.config";
+import DOMPurify from "isomorphic-dompurify";
 import { usePathname } from "next/navigation";
+import parse from 'html-react-parser';
 
 const PageContent = () => {
 	const pathName = usePathname();
@@ -12,9 +14,10 @@ const PageContent = () => {
 		return <NotFound />
 	}
 
+	const cleanHtml = DOMPurify.sanitize(pageContent.content);
 	return (
 		<>
-		<div dangerouslySetInnerHTML={{ __html: pageContent.content }}/>
+			<div>{parse(cleanHtml)}</div>
 		</>
 	)
 }
