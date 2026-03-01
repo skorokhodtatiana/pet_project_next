@@ -5,6 +5,7 @@ import { Input } from "@heroui/input";
 import { Button, Select, SelectItem } from "@heroui/react";
 import { useState } from "react";
 import { CATEGORY_OPTIONS, UNIT_OPTIONS } from "../constans/select-options";
+import { createIngridient } from "../actions/ingridiens";
 
 const IngridientForm = () => {
 	const[formData, setFormData] = useState({
@@ -15,13 +16,13 @@ const IngridientForm = () => {
 		description: ''
 	})
 
-	const handleSubmit = (e:React.FormEvent) => {
-		e.preventDefault();
-		console.log('formData', formData)
+	const handleSubmit = async (formData: FormData) => {
+		console.log('formData', formData);
+		await createIngridient(formData);
 	}
 
 	return (
-		<Form className="w-[400px]" onSubmit={handleSubmit}>
+		<Form className="w-[400px]" action={handleSubmit}>
 			<Input
 				isRequired
 				name="name"
@@ -109,7 +110,7 @@ const IngridientForm = () => {
 				onChange={(e) => setFormData({...formData, description: e.target.value})}
 			/>
 			<div className="flex w-full items-center justify-end">
-				<Button className="flex w-full items-center justify-end">
+				<Button color="primary" type="submit">
 					Добавить ингридиент
 				</Button>
 			</div>
