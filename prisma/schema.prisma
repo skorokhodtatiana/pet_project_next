@@ -8,8 +8,8 @@ datasource db {
 }
 
 model User {
-	id String @id @default(uuid())
-	email String @unique
+	id       String @id @default(uuid())
+	email    String @unique
 	password String
 
 	accounts      Account[]
@@ -58,4 +58,34 @@ model VerificationToken {
 	
 	@@unique([identifier, token])
 	@@map("verification_tokens")
+}
+
+model Ingridient {
+	id           String @id @default(uuid())
+	name         String
+	category     Category
+	unit         Unit
+	pricePerUnit Float?
+	description  String?
+	createAt     DateTime @default(now()) @map("created_at")
+	updateAt     DateTime @updatedAt @map("updated_at")
+
+	@@map("ingridiens")
+}
+
+enum Category {
+	VEGETABLES
+	FRUITS
+	MEAT
+	DAIRY
+	SPICES
+	OTHER
+}
+
+enum Unit {
+	GRAMS
+	KILOGRAMS
+	LITERS
+	MILLILITERS
+	PIECES
 }
