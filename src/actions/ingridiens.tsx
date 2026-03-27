@@ -6,12 +6,11 @@ import { ZodError } from "zod";
 
 export async function createIngridient(formData: FormData) {
 	try {
-		console.log('formData', formData)
 		const data = {
 			name: formData.get('name') as string,
 			category: formData.get('category') as string,
 			unit: formData.get('unit') as string,
-			pricePerUnit: formData.get('pricePerUnit') ? formData.get('pricePerUnit') as string : null,
+			pricePerUnit: formData.get('pricePerUnit') ? parseFloat(formData.get('pricePerUnit') as string) : null,
 			description: formData.get('description') as string
 		}
 		const validateData = ingridientShema.parse(data);
@@ -28,7 +27,7 @@ export async function createIngridient(formData: FormData) {
 		return { success: true, ingridient}
 	} catch (error) {
 		if (error instanceof ZodError) {
-			return {error: error}
+			return {error: error.message}
 		}
 		console.log('error', error)
 		return {error: "Ошибка при создании ингридиента"}
