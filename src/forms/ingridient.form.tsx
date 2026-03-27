@@ -3,26 +3,42 @@
 import { Form } from "@heroui/form";
 import { Input } from "@heroui/input";
 import { Button, Select, SelectItem } from "@heroui/react";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { CATEGORY_OPTIONS, UNIT_OPTIONS } from "../constans/select-options";
 import { createIngridient } from "../actions/ingridiens";
 
-const IngridientForm = () => {
-	const[formData, setFormData] = useState({
+const initialState = {
 		name: '',
 		category: '',
 		unit: '',
 		pricePerUnit: null as number | null,
 		description: ''
-	})
+	}
+
+const IngridientForm = () => {
+	const [error, setError] = useState<string | null>(null)
+	const[formData, setFormData] = useState(initialState)
+	const [isPending, startTransition] = useTransition();
 
 	const handleSubmit = async (formData: FormData) => {
-		console.log('formData', formData);
-		await createIngridient(formData);
+		startTransition(async () => {
+			console.log('formData', formData);
+			const result = await createIngridient(formData);
+
+			if (result.error) {
+				setError(result.error);
+				alert('Ошибка при создании ингридиента');
+			} else {
+				setError(null);
+				setFormData(initialState);
+				alert('Успешное создание ингридиента');
+			}
+		})
 	}
 
 	return (
 		<Form className="w-[400px]" action={handleSubmit}>
+			{error && <p className="text-red-500 mb-4">{error}</p>}
 			<Input
 				isRequired
 				name="name"
@@ -110,7 +126,7 @@ const IngridientForm = () => {
 				onChange={(e) => setFormData({...formData, description: e.target.value})}
 			/>
 			<div className="flex w-full items-center justify-end">
-				<Button color="primary" type="submit">
+				<Button color="primary" type="submit" isLoading={isPending}>
 					Добавить ингридиент
 				</Button>
 			</div>
