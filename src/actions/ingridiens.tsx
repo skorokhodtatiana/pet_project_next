@@ -33,3 +33,27 @@ export async function createIngridient(formData: FormData) {
 		return {error: "Ошибка при создании ингридиента"}
 	}
 }
+
+export async function getIngridients() {
+	try {
+		const ingridients = await prisma.ingridient.findMany();
+
+		return { success: true, ingridients }
+	} catch (error) {
+		console.log( 'Ошибка при получении ингридиентов: ', error)
+		return { error: 'Ошибка при получении ингридиентов'}
+	}
+}
+
+export async function deleteIngridient(id: string) {
+	try {
+		const ingridient = await prisma.ingridient.delete({
+			where: {id}
+		})
+
+		return {success: true, ingridient}
+	} catch (error) {
+		console.log( 'Ошибка при удалении ингридиента: ', error)
+		return { error: 'Ошибка при удалении ингридиента'}
+	}
+}
