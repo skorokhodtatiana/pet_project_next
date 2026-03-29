@@ -5,7 +5,7 @@ import { Input } from "@heroui/input";
 import { Button, Select, SelectItem } from "@heroui/react";
 import { useState, useTransition } from "react";
 import { CATEGORY_OPTIONS, UNIT_OPTIONS } from "../constans/select-options";
-import { createIngridient } from "../actions/ingridiens";
+import { useIngridientStore } from "../store/ingridient.store";
 
 const initialState = {
 		name: '',
@@ -19,14 +19,16 @@ const IngridientForm = () => {
 	const [error, setError] = useState<string | null>(null)
 	const[formData, setFormData] = useState(initialState)
 	const [isPending, startTransition] = useTransition();
+	const {addIngridient} = useIngridientStore();
 
 	const handleSubmit = async (formData: FormData) => {
 		startTransition(async () => {
-			console.log('formData', formData);
-			const result = await createIngridient(formData);
+			await addIngridient(formData);
 
-			if (result.error) {
-				setError(result.error);
+			const storeError = useIngridientStore.getState().error;
+
+			if (storeError) {
+				setError(storeError);
 				alert('Ошибка при создании ингридиента');
 			} else {
 				setError(null);
