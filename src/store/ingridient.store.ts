@@ -3,7 +3,7 @@ import { IIngridient } from "../types/ingridient";
 import { createIngridient, deleteIngridient, getIngridients } from "../actions/ingridiens";
 
 interface IngridientState {
-	ingridient: IIngridient[];
+	ingridients: IIngridient[];
 	isLoading: boolean;
 	error: string | null;
 	loadIngridient: () => Promise<void>;
@@ -12,7 +12,7 @@ interface IngridientState {
 }
 
 export const useIngridientStore = create<IngridientState>((set) => ({
-	ingridient: [],
+	ingridients: [],
 	isLoading: false,
 	error: null,
 	loadIngridient: async() => {
@@ -22,7 +22,7 @@ export const useIngridientStore = create<IngridientState>((set) => ({
 			const result = await getIngridients();
 
 			if (result.success) {
-				set({ingridient: result.ingridients, isLoading: false})
+				set({ingridients: result.ingridients, isLoading: false})
 			} else {
 				set({error: result.error, isLoading: false})
 			}
@@ -38,7 +38,7 @@ export const useIngridientStore = create<IngridientState>((set) => ({
 			const result = await createIngridient(formdata);
 			if (result.success) {
 				set((state) => ({
-					ingridient: [...state.ingridient, result.ingridient],
+					ingridients: [...state.ingridients, result.ingridient],
 					isLoading: false
 				}))
 			} else {
@@ -57,7 +57,7 @@ export const useIngridientStore = create<IngridientState>((set) => ({
 
 			if (result.success) {
 				set((state) => ({
-					ingridient: state.ingridient.filter(el => (
+					ingridients: state.ingridients.filter(el => (
 						el.id ! == id
 					)),
 					isLoading: false
