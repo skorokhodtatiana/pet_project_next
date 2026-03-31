@@ -58,7 +58,7 @@ export const useIngridientStore = create<IngridientState>((set) => ({
 			if (result.success) {
 				set((state) => ({
 					ingridients: state.ingridients.filter(el => (
-						el.id ! == id
+						el.id !== id
 					)),
 					isLoading: false
 				}))
