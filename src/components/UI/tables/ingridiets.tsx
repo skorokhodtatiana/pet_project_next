@@ -67,7 +67,7 @@ const IngridientTable = () => {
 				</TableBody>
 			</Table>
 		</>
-	) : (
+	) : ( isAuth &&
 		<p className="mt-4">Загрузка...</p>
 	)
 }
