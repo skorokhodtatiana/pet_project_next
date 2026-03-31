@@ -29,17 +29,15 @@ const IngridientForm = () => {
 
 			if (storeError) {
 				setError(storeError);
-				alert('Ошибка при создании ингридиента');
 			} else {
 				setError(null);
 				setFormData(initialState);
-				alert('Успешное создание ингридиента');
 			}
 		})
 	}
 
 	return (
-		<Form className="w-[400px]" action={handleSubmit}>
+		<Form className="w-full" action={handleSubmit}>
 			{error && <p className="text-red-500 mb-4">{error}</p>}
 			<Input
 				isRequired
