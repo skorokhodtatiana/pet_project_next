@@ -21,6 +21,10 @@ const IngridientTable = () => {
 		return option ? option.label : value
 	}
 
+	if (!isAuth) {
+		return <p>Не авторизован</p>;
+	}
+
 	return !isLoading && isAuth ? (
 		<>
 			<Table
@@ -67,9 +71,7 @@ const IngridientTable = () => {
 				</TableBody>
 			</Table>
 		</>
-	) : ( isAuth &&
-		<p className="mt-4">Загрузка...</p>
-	)
+	) : <p className="mt-4">Загрузка...</p>
 }
 
 export default IngridientTable;
