@@ -10,7 +10,6 @@ const IngridiensLayout: FC<IProps> = ({children}) => {
 
 	return (
 		<section>{children}</section>
-
 	)
 }
 

@@ -10,7 +10,6 @@ const AboutLayout: FC<IProps> = ({children}) => {
 
 	return (
 		<section>{children}</section>
-
 	)
 }
 
