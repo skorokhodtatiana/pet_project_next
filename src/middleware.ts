@@ -6,7 +6,10 @@ import { getToken } from "next-auth/jwt"
 
 export async function middleware (request: NextRequest) {
 	const { pathname } = request.nextUrl;
-	const token = await getToken({req: request});
+	const token = await getToken({
+		req: request,
+		secret: process.env.AUTH_SECRET
+	});
 	const protectionRoutes = ["/ingridiens"];
 
 	if(protectionRoutes.some(route => pathname.startsWith(route))) {
