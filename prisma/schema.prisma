@@ -69,8 +69,30 @@ model Ingridient {
 	description  String?
 	createAt     DateTime @default(now()) @map("created_at")
 	updateAt     DateTime @updatedAt @map("updated_at")
+  recipes      RecipeIngridient[]
 
 	@@map("ingridiens")
+}
+
+model Recipe {
+  id          String             @id @default(uuid())
+  name        String
+  description String
+  imageURL    String             @map("image_url")
+  ingredients RecipeIngridient[]
+
+  @@map("recipes")
+}
+
+model RecipeIngridient {
+  id           String     @id @default(uuid())
+  recipeId     String
+  ingredientId String
+  quantity     Float
+  ingredient   Ingridient @relation(fields: [ingredientId], references: [id])
+  recipe       Recipe     @relation(fields: [recipeId], references: [id])
+
+  @@map("recipe_ingredient")
 }
 
 enum Category {
