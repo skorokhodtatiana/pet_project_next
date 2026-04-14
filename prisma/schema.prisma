@@ -78,7 +78,7 @@ model Recipe {
   id          String             @id @default(uuid())
   name        String
   description String
-  imageURL    String             @map("image_url")
+  imageUrl    String?             @map("image_url")
   ingredients RecipeIngridient[]
 
   @@map("recipes")
