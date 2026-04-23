@@ -12,8 +12,8 @@ export async function middleware (request: NextRequest) {
 	});
 	const protectionRoutes = ["/ingridiens"];
 
-	if(protectionRoutes.some(route => pathname.startsWith(route))) {
-		if(!token) {
+	if (protectionRoutes.some(route => pathname.startsWith(route))) {
+		if (!token) {
 			const url = new URL("/error", request.url);
 			url.searchParams.set("message", "Недостаточно прав");
 			return NextResponse.redirect(url)

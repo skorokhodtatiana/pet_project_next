@@ -20,7 +20,7 @@ export async function getRecipes() {
 	}
 }
 
-export async function createRecipes(formData: FormData) {
+export async function createRecipe(formData: FormData) {
 	try {
 		const name = formData.get('name') as string;
 		const description = formData.get('description') as string;
