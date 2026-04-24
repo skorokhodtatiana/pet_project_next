@@ -10,9 +10,13 @@ export async function middleware (request: NextRequest) {
 		req: request,
 		secret: process.env.AUTH_SECRET
 	});
-	const protectionRoutes = ["/ingridiens"];
+	const protectionRoutes = ["/ingridiens", "/recipes/new", "/recipes/:path*"];
 
-	if (protectionRoutes.some(route => pathname.startsWith(route))) {
+	if (
+		protectionRoutes.some(route => 
+			pathname.startsWith(route.replace(":path*", ""))
+		)
+	) {
 		if (!token) {
 			const url = new URL("/error", request.url);
 			url.searchParams.set("message", "Недостаточно прав");
@@ -24,5 +28,5 @@ export async function middleware (request: NextRequest) {
 }
 
 export const config = {
-	matcher: ["/ingridiens"]
+	matcher: ["/ingridiens", "/recipes/new", "/recipes/:path*"]
 }
