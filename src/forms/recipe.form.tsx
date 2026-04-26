@@ -49,7 +49,7 @@ const RecipeForm = ({initialRecipe}: RecipeFormProps) => {
 	const router = useRouter();
 
 	const handleAddIngridientField = () => {
-		if (ingridientField.length > 10) {
+		if (ingridientField.length < 10) {
 			setIngridientField([
 				...ingridientField,
 				{id: ingridientField.length, ingridientId: "", quantity: null}
@@ -195,7 +195,7 @@ const RecipeForm = ({initialRecipe}: RecipeFormProps) => {
 						color="primary" 
 						variant="flat"
 						onPress={handleAddIngridientField}
-						className="w-[50px"
+						className="w-12.5"
 					>
 						+
 					</Button>
