@@ -9,7 +9,7 @@ export default function Home() {
 	const { recipes, isLoading, error } = useRecipeStore();
 
 	return (
-		<>
+		<div className="flex">
 			<div className="flex w-full justify-center items-center mb-4">
 				<Link href="/recipes/new">
 					<Button color="primary">Добавить рецепт</Button>
@@ -23,6 +23,6 @@ export default function Home() {
 			{recipes.map(recipe => (
 				<RecipeCard key={recipe.id} recipe={recipe}/>
 			))}
-		</>
+		</div>
 	);
 }

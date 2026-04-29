@@ -40,7 +40,7 @@ export default async function RootLayout({
 							<div className="flex min-h-screen flex-col justify-between">
 								<Header/>
 								<main
-									className={`flex flex-col max-w-[1024px] mx-auto px-[24px] justify-start items-center`}
+									className={`flex flex-col max-w-5xl mx-auto px-6 justify-start items-center`}
 									style={{height: `calc(100vh - ${layoutConfig.footerHight} - ${layoutConfig.headerHight})`}}
 								>
 									<TitlePage />

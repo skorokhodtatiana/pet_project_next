@@ -26,8 +26,8 @@ export async function createRecipe(formData: FormData) {
 		const description = formData.get('description') as string;
 		const imageUrl = formData.get("imageURL") as string | null;
 
-		const ingridiense = Array.from(formData.entries())
-			.filter(([key]) => key.startsWith('ingridiens_'))
+		const ingredients = Array.from(formData.entries())
+			.filter(([key]) => key.startsWith('ingridient_'))
 			.map(([keyframes, value]) => ({
 				ingredientId: value as string,
 				quantity: parseFloat(
@@ -36,8 +36,8 @@ export async function createRecipe(formData: FormData) {
 			})
 		)
 
-		if (!name || ingridiense.length === 0) {
-			return {success: false, error: "Имя и хотябы один ингридиент обязательны"};
+		if (!name || ingredients.length === 0) {
+			return {success: false, error: "Имя и хотя бы один ингридиент обязательны"};
 		}
 
 		const recipe = await prisma.recipe.create({
@@ -46,7 +46,7 @@ export async function createRecipe(formData: FormData) {
 				description,
 				imageUrl,
 				ingredients: {
-					create: ingridiense.map(({ingredientId, quantity}) => ({
+					create: ingredients.map(({ingredientId, quantity}) => ({
 						ingredient: {connect: {id: ingredientId}},
 						quantity
 					}))
@@ -74,8 +74,8 @@ export async function updateRecipes(id: string, formData: FormData) {
 		const description = formData.get('description') as string;
 		const imageUrl = formData.get("imageUrl") as string | null;
 
-		const ingridiense = Array.from(formData.entries())
-			.filter(([key]) => key.startsWith('ingridiens_'))
+		const ingredients = Array.from(formData.entries())
+			.filter(([key]) => key.startsWith('ingridient_'))
 			.map(([keyframes, value]) => ({
 				ingredientId: value as string,
 				quantity: parseFloat(
@@ -84,8 +84,8 @@ export async function updateRecipes(id: string, formData: FormData) {
 			})
 		)
 
-		if (!name || ingridiense.length === 0) {
-			return {success: false, error: "Имя и хотябы один ингридиент обязательны"};
+		if (!name || ingredients.length === 0) {
+			return {success: false, error: "Имя и хотя бы один ингридиент обязательны"};
 		}
 
 		const recipe = await prisma.recipe.update({
@@ -96,7 +96,7 @@ export async function updateRecipes(id: string, formData: FormData) {
 				imageUrl,
 				ingredients: {
 					deleteMany: {},
-					create: ingridiense.map(({ingredientId, quantity}) => ({
+					create: ingredients.map(({ingredientId, quantity}) => ({
 						ingredient: {connect: {id: ingredientId}},
 						quantity
 					}))
