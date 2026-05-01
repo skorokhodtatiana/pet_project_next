@@ -15,15 +15,17 @@ const EditRecipePage = () => {
 	useEffect(() => {
 		if (recipes.length > 0 || error) {
 			const foundRecipe = recipes.find((r) => r.id === id);
-			setRecipe(foundRecipe || null);
-			setHasSearched(true);
+			setTimeout(() => {
+				setRecipe(foundRecipe || null);
+				setHasSearched(true);
+			},0)
 		}
 	}, [recipes, id, error]);
 
 	if (isLoading) return <p className="text-center">Загрузка...</p>
 	if (error) return <p className="text-red-500 text-center">{error}</p>
 
-	if (hasSearched || !recipe) {
+	if (hasSearched && !recipe) {
 		return <p className="text-red-500 text-center">Рецепт не найден!</p>
 	}
 
