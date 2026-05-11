@@ -32,8 +32,8 @@ const RecipeForm = ({initialRecipe}: RecipeFormProps) => {
 		imageUrl: initialRecipe?.imageUrl || initialState.imageUrl
 	});
 
-	const [ingridientField, setIngridientField] =useState<IIngridientField[]>(
-		initialRecipe?.ingredients 
+	const [ingridientField, setIngridientField] = useState<IIngridientField[]>(
+		initialRecipe?.ingredients
 			? initialRecipe?.ingredients.map((ing, index) => ({
 				id: index,
 				ingridientId: ing.ingredientId,
@@ -68,8 +68,12 @@ const RecipeForm = ({initialRecipe}: RecipeFormProps) => {
 		field: keyof IIngridientField,
 		value: string | number | null
 	) => {
+		console.log("ingridientField ", ingridientField);
+		ingridientField.map(f => console.log("f ", f))
 		setIngridientField(
-			ingridientField.map((f) => (f.id === id ? {...f, [field]: value} : f))
+			ingridientField.map((f) => (
+				f.id === id ? {...f, [field]: value} : f
+			))
 		);
 	};
 
@@ -92,7 +96,7 @@ const RecipeForm = ({initialRecipe}: RecipeFormProps) => {
 	};
 
 	return (
-		<Form className="w-[450px]" action={handleSubmit}>
+		<Form className="w-112.5" action={handleSubmit}>
 			{error && <p className="text-red-500 mb-4">{error}</p>}
 
 			<Input
@@ -144,7 +148,7 @@ const RecipeForm = ({initialRecipe}: RecipeFormProps) => {
 							name={`ingridient_${index}`}
 							placeholder="Выберите ингридиент"
 							aria-label="category"
-							selectedKeys={field.ingridientId ? [field.ingridientId ] : []}
+							selectedKeys={field.ingridientId ? [field.ingridientId] : []}
 							classNames={{
 								trigger: "bg-default-100 w-full",
 								innerWrapper: "text-sm",
@@ -169,7 +173,7 @@ const RecipeForm = ({initialRecipe}: RecipeFormProps) => {
 								inputWrapper: "bg-default-100 w-full",
 								input: "text-sm focus:outline-none"
 							}}
-							className="w-[100px]"
+							className="w-25"
 							onChange={(e) => handleIngridientChange(field.id, "quantity", e.target.value ? parseFloat(e.target.value) : null)}
 							validate={(value) => 
 								!value || parseFloat(value) <= 0
