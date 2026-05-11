@@ -24,7 +24,7 @@ export async function createRecipe(formData: FormData) {
 	try {
 		const name = formData.get('name') as string;
 		const description = formData.get('description') as string;
-		const imageUrl = formData.get("imageURL") as string | null;
+		const imageUrl = formData.get('imageUrl') as string | null;
 
 		const ingredients = Array.from(formData.entries())
 			.filter(([key]) => key.startsWith('ingridient_'))
@@ -72,7 +72,7 @@ export async function updateRecipes(id: string, formData: FormData) {
 	try {
 		const name = formData.get('name') as string;
 		const description = formData.get('description') as string;
-		const imageUrl = formData.get("imageUrl") as string | null;
+		const imageUrl = formData.get('imageUrl') as string | null;
 
 		const ingredients = Array.from(formData.entries())
 			.filter(([key]) => key.startsWith('ingridient_'))
