@@ -20,7 +20,7 @@ export async function middleware (request: NextRequest) {
 		if (!token) {
 			const url = new URL("/error", request.url);
 			url.searchParams.set("message", "Недостаточно прав");
-			return NextResponse.redirect(url)
+			return NextResponse.redirect(url);
 		}
 	}
 
