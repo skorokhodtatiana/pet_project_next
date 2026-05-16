@@ -38,7 +38,7 @@ export const useRecipeStore = create<IRecipeState>((set) => ({
 			set({error: 'Ошибка при загрузке рецептов', isLoading: false});
 		}
 	},
-	addRecipe: async(formData: FormData) => {
+	addRecipe: async (formData: FormData) => {
 		set({error: null});
 
 		try {
@@ -46,10 +46,10 @@ export const useRecipeStore = create<IRecipeState>((set) => ({
 
 			if (result.success) {
 				set((state) => ({
-					resipes: [...state.recipes, result.recipe],
+					recipes: [...state.recipes, result.recipe!],
 					isLoading: false
 				}))
-				return {success: true, recipe: result.recipe!}
+				return {success: true, recipe: result.recipe}
 			} else {
 				set({error: result.error, isLoading: false});
 				return {success: false, error: result.error}
